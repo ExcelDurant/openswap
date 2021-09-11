@@ -4,7 +4,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var typeorm = require('typeorm');
 
-var apiRouter = require('./routes/api');
+var apiRouter = require('./routes/pi');
 
 require('dotenv').config({ path: '.env' });
 
