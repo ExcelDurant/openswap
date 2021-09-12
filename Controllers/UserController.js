@@ -1,13 +1,40 @@
+var getRepository = require('typeorm').getRepository;
+var User = require('../entity/User');
 class UserController {
     index(req, res, next) {
-        res.json({ users: [] });
+        var users = [];
+        // uses getRepository to find all users from the database
+        getRepository(User).find().then((doc) => {
+            users = doc;
+            res.json(users);
+        })
     }
 
     register(req, res, next) {
-        res.json({
-            success: true,
-            data: [],
-            message: "User successfully registered"
+        // res.json({
+        //     success: true,
+        //     data: [],
+        //     message: "User successfully registered"
+        // })
+
+        // create a random user object to be saved in the database
+        var newUser = {
+            name:"Lorem Guy 1",
+            phone_number:600000000,
+            email:"lorem@gmail.com",
+            password:"lorem123456789",
+            role:"buyer",
+            registeredOn:new Date(),
+            cash:20000
+        }
+
+        // saves the new user in the database and responds with the user that has been saved
+        getRepository(User).save(newUser)
+        .then((user) => {
+            res.json(user);
+        })
+        .catch((err) => {
+            console.log(err);
         })
     }
     login(req, res, next) {
