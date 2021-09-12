@@ -38,10 +38,19 @@ class UserController {
         })
     }
     login(req, res, next) {
-        res.json({
-            success: true,
-            data: [],
-            message: "login successfully, you will be redirected to your account shortly"
+        // res.json({
+        //     success: true,
+        //     data: [],
+        //     message: "login successfully, you will be redirected to your account shortly"
+        // })
+
+        // finds a single user with a given email and password
+        getRepository(User).findOne({email:"lorem@gmail.com", password:"lorem123456789"})
+        .then((user) => {
+            res.json(user);
+        })
+        .catch((err) => {
+            console.log(err);
         })
     }
     account(req, res, next) {
